@@ -31,5 +31,5 @@ public class validateCard
 						String Number = file.next();
 					}
 
-		
+		//gebv
 	}
