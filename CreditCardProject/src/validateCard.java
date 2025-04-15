@@ -26,12 +26,16 @@ public class validateCard
 		{
 			try
 		        {
-		            Scanner myFile = new Scanner(new File("CreditCardNumbers"));
+		            Scanner myFile = new Scanner(new File("src/CreditCardNumbers.txt"));
 		            while (myFile.hasNextLine())
 		            {
-		                String line = myFile.nextLine();
+		                String line = myFile.nextLine().trim();
 		                System.out.println("Checking from file: " + line);
-		                playerAnswer(line);
+		                boolean isValid = playerAnswer(line);
+		                if(isValid)
+		                	{
+		                		count++;
+		                	}
 		            }
 		        }
 		        catch (FileNotFoundException e)
@@ -40,9 +44,14 @@ public class validateCard
 		        }
 
 		}
-		public static void playerAnswer(String input)
+		public static boolean playerAnswer(String input)
 		{
 			cardNumbers = new ArrayList<>();
+			if(input.length() !=16 || !input.matches("\\d+"))
+				{
+					System.out.println("Invalid input format: + input");
+					return false;
+				}
 			for(int i=0; i<input.length(); i++)
 				{
 					int digit = input.charAt(i) - '0';
@@ -50,8 +59,18 @@ public class validateCard
 				}
 			doubleAlternating();
 			addTwoDigits();
-			newValues();
-			divideByTen();
+			findSumOfValid();
+
+			boolean isValid = (sum%10==0);
+			if(isValid)
+				{
+					System.out.println("This number is valid! Go crazy!");
+				}
+			else
+				{
+					System.out.println("This number is not valid....");
+				}
+			return isValid;
 		}
 		
 		public static void doubleAlternating()
@@ -73,24 +92,12 @@ public class validateCard
 						}
 				}
 		}
-		public static void newValues()
+		public static void findSumOfValid()
 		{
 			sum = 0; 
-			for (int i=0; i<cardNumbers.size(); i++)
+			for(int num: cardNumbers)
 				{
-					sum+=(int) cardNumbers.get(i);
-				}
-		}
-		public static void divideByTen()
-		{
-			if(sum % 10==0)
-				{
-					System.out.println("This number is valid!");
-					count++;
-				}
-			else
-				{
-					System.out.println("This number is not valid....");
+					sum += num;
 				}
 		}
 
