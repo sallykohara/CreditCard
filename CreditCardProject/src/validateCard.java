@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class validateCard
 	{
 		static String playerAnswer; 
-		static ArrayList<Object> cardNumbers; 
+		static ArrayList<Integer> cardNumbers; 
 		static int sum;
 		private static int count; 
 		
@@ -26,7 +26,7 @@ public class validateCard
 		{
 			try
 		        {
-		            Scanner myFile = new Scanner(new File("creditCardFile"));
+		            Scanner myFile = new Scanner(new File("CreditCardNumbers"));
 		            while (myFile.hasNextLine())
 		            {
 		                String line = myFile.nextLine();
@@ -56,9 +56,9 @@ public class validateCard
 		
 		public static void doubleAlternating()
 		{
-			for(int i = cardNumbers.size()-2; i>=0; i=2)
+			for(int i = cardNumbers.size()-2; i>=0; i-=2)
 				{
-					int doubledDigits = (int) cardNumbers.get(i)*2;
+					int doubledDigits = ((int) cardNumbers.get(i)*2);
 					cardNumbers.set(i,  doubledDigits);
 				}
 		}
