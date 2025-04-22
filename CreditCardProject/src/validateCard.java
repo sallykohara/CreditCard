@@ -15,6 +15,7 @@ public class validateCard
 			helloUser(); 
 			playerAnswer(playerAnswer);
 			readTextFile(); 
+			printValid();
 		}
 		public static void helloUser()
 		{
@@ -30,11 +31,16 @@ public class validateCard
 		            while (myFile.hasNextLine())
 		            {
 		                String line = myFile.nextLine().trim();
-		                System.out.println("Checking from file: " + line);
+//		                System.out.println("Checking from file: " + line);
 		                boolean isValid = playerAnswer(line);
 		                if(isValid)
 		                	{
+		                		System.out.println("This number is valid!! Go crazy!!");
 		                		count++;
+		                	}
+		                else
+		                	{
+		                		System.out.println("This number is not valid...");
 		                	}
 		            }
 		        }
@@ -49,7 +55,6 @@ public class validateCard
 			cardNumbers = new ArrayList<>();
 			if(input.length() !=16 || !input.matches("\\d+"))
 				{
-					System.out.println("Invalid input format: + input");
 					return false;
 				}
 			for(int i=0; i<input.length(); i++)
@@ -61,15 +66,17 @@ public class validateCard
 			addTwoDigits();
 			findSumOfValid();
 
+
 			boolean isValid = (sum%10==0);
-			if(isValid)
-				{
-					System.out.println("This number is valid! Go crazy!");
-				}
-			else
-				{
-					System.out.println("This number is not valid....");
-				}
+//			if(isValid)
+//				{
+//					System.out.println("This number is valid! Go crazy!");
+//					count++;
+//				}
+//			else
+//				{
+//					System.out.println("This number is not valid....");
+//				}
 			return isValid;
 		}
 		
@@ -99,6 +106,10 @@ public class validateCard
 				{
 					sum += num;
 				}
+		}
+		public static void printValid()
+		{
+			System.out.println("There are " +count+ " valid credit card numbers in this file.");
 		}
 
 	}
